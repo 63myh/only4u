@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>ليلةٌ لكِ ✦</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Tajawal:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{--gold:#f6e2a8;--silver:#dce6ff;--mx:68%;--ms:clamp(84px,17vmin,160px)}
+*{box-sizing:border-box;margin:0}
+html,body{height:100%;overflow:hidden;background:#02040d}
+body{font-family:'Tajawal',sans-serif;color:var(--silver);position:fixed;inset:0}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible{outline:2px solid var(--gold);outline-offset:4px}
+
+/* ===== السماء ===== */
+.scene{position:absolute;inset:0;background:linear-gradient(#02040d 0%,#06102e 40%,#0d2458 66%)}
+#sky{position:absolute;inset:0;width:100%;height:100%}
+
+/* ===== القمر ===== */
+.moon{position:absolute;left:var(--mx);top:9%;width:var(--ms);height:var(--ms);transform:translateX(-50%);border:0;border-radius:50%;
+ background:radial-gradient(circle at 35% 30%,#fffef5,#f5ecd2 45%,#d8cdac 80%,#bdb28d);
+ box-shadow:0 0 36px 10px rgba(255,240,190,.45),0 0 150px 60px rgba(246,226,168,.2);animation:breathe 7s ease-in-out infinite}
+.moon::before{content:"";position:absolute;inset:0;border-radius:50%;
+ background:radial-gradient(circle at 30% 62%,rgba(140,128,98,.35) 0 9%,transparent 10%),radial-gradient(circle at 62% 35%,rgba(140,128,98,.3) 0 12%,transparent 13%),radial-gradient(circle at 70% 70%,rgba(140,128,98,.28) 0 7%,transparent 8%)}
+@keyframes breathe{50%{box-shadow:0 0 46px 16px rgba(255,240,190,.55),0 0 190px 80px rgba(246,226,168,.26)}}
+
+/* ===== النجوم التفاعلية ===== */
+.star{position:absolute;width:48px;height:48px;margin:-24px 0 0 -24px;border:0;background:none;font-size:26px;color:#fff;
+ text-shadow:0 0 8px #fff,0 0 20px #9db8ff,0 0 38px #6f93ff;animation:twinkle 3.2s ease-in-out infinite;transition:transform .3s}
+.star:hover{transform:scale(1.35)}
+@keyframes twinkle{0%,100%{opacity:.55;scale:.85}50%{opacity:1;scale:1.15}}
+
+/* ===== البحر ===== */
+.sea{position:absolute;left:0;right:0;bottom:0;height:34%;overflow:hidden;background:linear-gradient(#183a7a 0%,#0b2250 35%,#030818 100%)}
+.sea::before{content:"";position:absolute;left:0;right:0;top:0;height:2px;background:linear-gradient(90deg,transparent,rgba(246,226,168,.7) 68%,transparent);filter:blur(1px);z-index:3}
+.wave{position:absolute;left:0;width:200%;height:55%;animation:drift linear infinite}
+.wave svg{width:100%;height:100%;display:block}
+@keyframes drift{to{transform:translateX(-50%)}}
+.reflect{position:absolute;left:var(--mx);top:0;height:100%;width:34%;transform:translateX(-50%);z-index:2;pointer-events:none;
+ background:linear-gradient(rgba(246,226,168,.3),transparent 85%);-webkit-mask:linear-gradient(90deg,transparent,#000 50%,transparent);mask:linear-gradient(90deg,transparent,#000 50%,transparent)}
+.glint{position:absolute;left:50%;height:2px;border-radius:2px;background:linear-gradient(90deg,transparent,#fff6d6,transparent);animation:glint ease-in-out infinite}
+@keyframes glint{0%,100%{opacity:.15;transform:translateX(calc(-50% + var(--o))) scaleX(.6)}50%{opacity:.95;transform:translateX(calc(-50% - var(--o))) scaleX(1.1)}}
+
+.hint{position:absolute;top:max(18px,env(safe-area-inset-top));left:0;right:0;text-align:center;font-family:'Amiri',serif;font-size:1.15rem;color:var(--gold);opacity:0;transition:opacity 1.5s;pointer-events:none;padding:0 16px}
+.hint.on{opacity:.85}
+
+/* ===== شاشة الترحيب ===== */
+.welcome{position:fixed;inset:0;z-index:20;display:grid;place-items:center;padding:20px;background:rgba(2,5,16,.55);backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px);transition:opacity 1.2s ease,visibility 1.2s}
+.welcome.out{opacity:0;visibility:hidden}
+.glass{width:min(92vw,460px);padding:clamp(26px,6vw,44px) clamp(22px,5vw,38px);text-align:center;border-radius:28px;
+ background:linear-gradient(160deg,rgba(255,255,255,.14),rgba(255,255,255,.04));border:1px solid rgba(246,226,168,.35);
+ box-shadow:0 24px 70px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.25)}
+.date{font-family:'Amiri',serif;font-size:clamp(2.6rem,12vw,3.8rem);color:var(--gold);line-height:1.1;text-shadow:0 0 24px rgba(246,226,168,.5)}
+.glass h1{font-family:'Amiri',serif;font-weight:400;font-size:clamp(1.35rem,5.5vw,1.8rem);margin:14px 0 12px;line-height:1.7}
+.glass p{font-weight:300;line-height:2;font-size:1.02rem;color:#c9d6f5}
+.go{margin-top:26px;padding:14px 30px;border-radius:999px;border:1px solid var(--gold);background:rgba(246,226,168,.12);color:var(--gold);font-family:'Amiri',serif;font-size:1.2rem;transition:background .3s,box-shadow .3s}
+.go:hover{background:rgba(246,226,168,.25);box-shadow:0 0 28px rgba(246,226,168,.4)}
+
+/* ===== نافذة الرسائل ===== */
+.modal{position:fixed;inset:0;z-index:30;display:grid;place-items:center;padding:20px;background:rgba(2,5,16,.6);backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);opacity:0;visibility:hidden;transition:opacity .5s,visibility .5s}
+.modal.show{opacity:1;visibility:visible}
+.card{position:relative;width:min(92vw,480px);max-height:84dvh;overflow:auto;padding:34px 28px 30px;border-radius:26px;text-align:center;
+ background:linear-gradient(165deg,rgba(18,36,86,.92),rgba(6,13,38,.94));border:1px solid rgba(220,230,255,.3);box-shadow:0 30px 80px rgba(0,0,0,.6),0 0 60px rgba(120,150,255,.15);
+ transform:translateY(18px) scale(.96);transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+.modal.show .card{transform:none}
+.card.moonc{border-color:rgba(246,226,168,.55);box-shadow:0 30px 80px rgba(0,0,0,.6),0 0 70px rgba(246,226,168,.22)}
+.kind{font-size:.9rem;color:var(--gold);letter-spacing:.04em}
+.card h2{font-family:'Amiri',serif;font-weight:700;font-size:1.7rem;margin:6px 0 14px;color:#fff}
+.card .body p{font-family:'Amiri',serif;font-size:1.28rem;line-height:2.05;margin-bottom:.6em;color:#e6edff}
+.x{position:absolute;top:10px;left:10px;width:42px;height:42px;border:0;border-radius:50%;background:rgba(255,255,255,.08);font-size:1.5rem;line-height:1}
+.x:hover{background:rgba(255,255,255,.18)}
+/* ===== زر صوت البحر ===== */
+.music{position:fixed;top:max(14px,env(safe-area-inset-top));left:14px;z-index:10;width:46px;height:46px;border-radius:50%;
+ border:1px solid rgba(246,226,168,.45);background:rgba(255,255,255,.08);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);
+ font-size:1.3rem;line-height:1;transition:background .3s,opacity .3s}
+.music:hover{background:rgba(246,226,168,.2)}
+.music:not(.on){opacity:.6}
+.music:not(.on)::after{content:"";position:absolute;inset:0;margin:auto;width:28px;height:2px;background:var(--gold);transform:rotate(-45deg)} /* شرطة = متوقف */
+.music.on{background:rgba(246,226,168,.22);animation:pulse 2.6s ease-in-out infinite}
+@keyframes pulse{0%,100%{box-shadow:0 0 14px rgba(246,226,168,.35)}50%{box-shadow:0 0 30px rgba(246,226,168,.7)}}
+
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition-duration:.01s!important}}
+</style>
+</head>
+<body>
+
+<div class="scene" id="scene">
+  <canvas id="sky"></canvas>
+  <button class="moon" id="moon" aria-label="افتحي رسالة القمر"></button>
+  <div id="stars"></div>
+  <div class="sea" id="sea"><div class="reflect" id="reflect"></div></div>
+  <div class="hint" id="hint">المسي القمر… وانظري ما تخبئه النجوم ✦</div>
+  <!-- زر صوت البحر -->
+  <button class="music" id="music" aria-label="تشغيل أو إيقاف صوت البحر" aria-pressed="false">🌊</button>
+</div>
+
+<!-- شاشة الترحيب (النصوص تُعدَّل من الجزء [1] في الأعلى داخل السكربت) -->
+<div class="welcome" id="welcome">
+  <div class="glass">
+    <div class="date" id="wDate"></div>
+    <h1 id="wTitle"></h1>
+    <p id="wText"></p>
+    <button class="go" id="go"></button>
+  </div>
+</div>
+
+<div class="modal" id="modal">
+  <div class="card" id="card" role="dialog" aria-modal="true" aria-labelledby="mTitle">
+    <button class="x" id="close" aria-label="إغلاق">×</button>
+    <div class="kind" id="mKind"></div>
+    <h2 id="mTitle"></h2>
+    <div class="body" id="mBody"></div>
+  </div>
+</div>
+
+<script>
+/* =====================================================================
+   ★★★ منطقة التعديل: كل نصوص الهدية هنا فقط. لا تلمسي ما بعدها. ★★★
+   - استخدمي علامتي الاقتباس ' ' أو " " كما هي، ولا تحذفيها ولا تحذفي الفواصل ,
+   - لفصل الفقرات داخل أي نص اكتبي \n بين الفقرتين.
+   ===================================================================== */
+
+const HER_NAME = 'أثير';   // ← اسمها (يظهر داخل بعض الرسائل)
+
+/* ---------- [1] نص رسالة الترحيب والتهنئة عند الدخول ---------- */
+const WELCOME = {
+  date:   '٦ أكتوبر',                                   // ← التاريخ الكبير
+  title:  'كل عامٍ وأنتِ نورٌ في سمائي',              // ← العنوان
+  text:   'في السادس من أكتوبر أضاءت الدنيا بنجمةٍ اسمها ' + HER_NAME + '. سويت لكِ هذه الليلة ولو اني متأخر: بحرٌ هادئ زي ماتحبين، وقمرٌ اشوفك فيه، ونجومٌ اشوف فيها عيونك. كل عام وقلبكِ بسَعة البحر وسكينته.', // ← الفقرة
+  button: ' سماء وبحر ليلتك ✦'                  // ← نص الزر
+};
+
+/* ---------- [2] رسالة القمر الخاصة (تظهر عند النقر على القمر) ---------- */
+const MOON = {
+  title: 'يا' + HER_NAME,                              // ← عنوان الرسالة
+  text:' قمر أعيذ جماله وكماله   \nباللَه من شر الحسود إذا حسد.\nكل عام وأنتِ بخير.' // ← اكتبي رسالتك هنا (\n = فقرة جديدة)
+};
+
+/* ---------- [3] نصوص وعناوين النجوم التفاعلية ----------
+   كل سطر { } هو نجمة واحدة:
+   x و y = مكانها في السماء (نسبة مئوية، y بين 6 و 52)
+   kind  = نوع البطاقة (صفة / ذكرى / خاطرة / بيت شعر)
+   title = العنوان    text = المحتوى
+   لإضافة نجمة: انسخي سطراً كاملاً مع الفاصلة في آخره. لحذفها: احذفي السطر. */
+const STARS = [
+  { x:10, y:16, kind:'صفة',   title:'عسسسلللللل',        text:'عسل عسل عسلل والله خلصتي الكلام الحلو علينا' },
+  { x:27, y:32, kind:'شكككرا',  title:'شكرااا', text: 'والله مهما قلت وسويت ما تكفي ولا توفي حقك شكراا' },
+  { x:45, y:12, kind:'خاطرة', title:'عن النجوم',     text:'النجوم لا تصرخ لتُرى، تكتفي بأن تلمع. وأنتِ بعد.' },
+  { x:58, y:43, kind:'صفة',   title:'طيبتكِ',        text:'اطيب من عرفت في حياتي كلها الله يسعدك' },
+  { x:88, y:28, kind:'بيت شعر', title:'أمنية',       text:'يا ليلُ طُل أو لا تطُل، فبقربها كلُّ الليالي ضوءُ قمر.' },
+  { x:14, y:50, kind:'اعتذر جدا', title:'اسففف',           text:'ادريي متااخر بس اسف والمره الجايه علىى يومهاا' },
+  { x:38, y:48, kind:'ذكرى',  title:'أجمل ما فيكِ',  text:'الصراحه عجز لساني يطلع كلام مافي شي يوفي حقك .' }
+];
+
+/* =====================================================================
+   ↓↓↓ من هنا فما بعد: كود التشغيل. لا حاجة لتعديله ↓↓↓
+   ===================================================================== */
+const $ = id => document.getElementById(id);
+const rnd = (a,b) => a + Math.random()*(b-a);
+
+// تعبئة نص الترحيب
+$('wDate').textContent = WELCOME.date;  $('wTitle').textContent = WELCOME.title;
+$('wText').textContent = WELCOME.text;  $('go').textContent = WELCOME.button;
+
+// الأمواج: ثلاث طبقات تتحرك بسلاسة
+const SEA = [ // [ارتفاع الموجة, عدد الدورات, اللون, المدة بالثواني, الإزاحة السفلية, الاتجاه]
+  [4, 4, 'rgba(24,58,126,.85)', 38, '48%', 'normal'],
+  [7, 3, 'rgba(12,34,84,.92)',  28, '26%', 'reverse'],
+  [10,2, 'rgba(4,14,40,.97)',   20, '0%',  'normal']
+];
+SEA.forEach(([amp,k,fill,dur,bot,dir]) => {
+  let d = 'M0,120 L0,40';
+  for (let x = 0; x <= 2400; x += 30) d += ` L${x},${(40 + amp*Math.sin(x/1200*Math.PI*2*k)).toFixed(1)}`;
+  d += ' L2400,120 Z';
+  const w = document.createElement('div');
+  w.className = 'wave';
+  w.style.cssText = `bottom:${bot};animation-duration:${dur}s;animation-direction:${dir}`;
+  w.innerHTML = `<svg viewBox="0 0 2400 120" preserveAspectRatio="none"><path d="${d}" fill="${fill}"/></svg>`;
+  $('sea').appendChild(w);
+});
+$('sea').appendChild($('reflect'));   // إبقاء الانعكاس فوق الأمواج الخلفية
+
+// بريق القمر على الماء
+for (let i = 0; i < 26; i++) {
+  const g = document.createElement('i');
+  g.className = 'glint';
+  g.style.cssText = `top:${4 + i*3.6}%;width:${22 + i*2.8}%;--o:${rnd(2,14).toFixed(1)}px;animation-duration:${rnd(2.2,4.5).toFixed(2)}s;animation-delay:-${rnd(0,4).toFixed(2)}s`;
+  $('reflect').appendChild(g);
+}
+
+// نجوم تفاعلية
+STARS.forEach(s => {
+  const b = document.createElement('button');
+  b.className = 'star'; b.textContent = '✦';
+  b.setAttribute('aria-label', 'نجمة: ' + s.title);
+  b.style.cssText = `left:${s.x}%;top:${s.y}%;animation-delay:-${rnd(0,3).toFixed(2)}s`;
+  b.onclick = () => openCard(s.kind, s.title, s.text, false);
+  $('stars').appendChild(b);
+});
+$('moon').onclick = () => openCard('رسالة من القمر', MOON.title, MOON.text, true);
+
+// النافذة المنبثقة
+let lastFocus;
+function openCard(kind, title, text, isMoon) {
+  lastFocus = document.activeElement;
+  $('mKind').textContent = kind; $('mTitle').textContent = title;
+  $('mBody').replaceChildren(...text.split('\n').map(t => Object.assign(document.createElement('p'), {textContent: t})));
+  $('card').classList.toggle('moonc', isMoon);
+  $('modal').classList.add('show'); $('close').focus();
+  $('hint').classList.remove('on');
+}
+function closeCard() { $('modal').classList.remove('show'); lastFocus && lastFocus.focus(); }
+$('close').onclick = closeCard;
+$('modal').onclick = e => { if (e.target === $('modal')) closeCard(); };
+addEventListener('keydown', e => { if (e.key === 'Escape') closeCard(); });
+// صوت البحر (يُولَّد بالكود، لا يحتاج ملفاً)
+const SEA_VOLUME = 1;      // ← ارفعيه أو اخفضيه حسب رغبتك (مثلاً 2 أهدأ، 4 أعلى)
+let ac, master, seaOn = false;
+const mBtn = $('music');
+
+function buildSea() {
+  ac = new (window.AudioContext || window.webkitAudioContext)();
+  master = ac.createGain(); master.gain.value = 0; master.connect(ac.destination);
+  const len = ac.sampleRate * 8, buf = ac.createBuffer(1, len, ac.sampleRate), d = buf.getChannelData(0);
+  for (let i = 0; i < len; i++) d[i] = Math.random()*2 - 1;       // ضجيج أبيض يُشكَّل إلى موج
+  const layer = (type, freq, base, depth, lfoHz) => {
+    const src = ac.createBufferSource(); src.buffer = buf; src.loop = true;
+    const f = ac.createBiquadFilter(); f.type = type; f.frequency.value = freq;
+    const g = ac.createGain(); g.gain.value = base;
+    const lfo = ac.createOscillator(); lfo.frequency.value = lfoHz;   // سرعة مدّ الموج وجزره
+    const dep = ac.createGain(); dep.gain.value = depth;
+    lfo.connect(dep); dep.connect(g.gain);
+    src.connect(f); f.connect(g); g.connect(master);
+    src.start(); lfo.start();
+  };
+  layer('lowpass', 400, .45, .35, .09);    // الهدير العميق للموج
+  layer('bandpass', 1600, .1, .08, .12);   // رغوة الموج الخفيفة
+}
+
+function setSea(play) {
+  seaOn = play;
+  if (play) {
+    if (!ac) buildSea();
+    ac.resume();
+    master.gain.setTargetAtTime(SEA_VOLUME, ac.currentTime, 1.2);   // دخول تدريجي
+  } else if (ac) {
+    master.gain.setTargetAtTime(0, ac.currentTime, .4);
+    setTimeout(() => { if (!seaOn) ac.suspend(); }, 1800);
+  }
+  mBtn.classList.toggle('on', play);
+  mBtn.setAttribute('aria-pressed', play);
+}
+mBtn.onclick = () => setSea(!seaOn);
+// الدخول من شاشة الترحيب
+$('go').onclick = () => {
+  $('welcome').classList.add('out');
+  setTimeout(() => $('hint').classList.add('on'), 1400);
+};
+
+// خلفية النجوم بالـ Canvas
+const cv = $('sky'), cx = cv.getContext('2d');
+let W, H, P = [], shoot = null;
+function resize() {
+  const d = devicePixelRatio || 1;
+  W = innerWidth; H = innerHeight;
+  cv.width = W*d; cv.height = H*d; cx.setTransform(d,0,0,d,0,0);
+  P = Array.from({length: Math.min(240, Math.floor(W*H/6000))}, () => ({x:rnd(0,W), y:rnd(0,H*.68), r:rnd(.25,1.5), p:rnd(0,6.28), s:rnd(.4,1.9)}));
+}
+function frame(t) {
+  cx.clearRect(0,0,W,H);
+  cx.fillStyle = '#eaf0ff';
+  for (const s of P) {
+    cx.globalAlpha = .3 + .7*Math.abs(Math.sin(t/1000*s.s + s.p));
+    cx.beginPath(); cx.arc(s.x, s.y, s.r, 0, 6.283); cx.fill();
+  }
+  if (!shoot && Math.random() < .0025) shoot = {x:rnd(W*.1,W*.6), y:rnd(0,H*.22), l:0};
+  if (shoot) {
+    const a = 1 - shoot.l/55, g = cx.createLinearGradient(shoot.x,shoot.y,shoot.x-90,shoot.y-45);
+    g.addColorStop(0,'#fff'); g.addColorStop(1,'rgba(255,255,255,0)');
+    cx.globalAlpha = Math.max(a,0); cx.strokeStyle = g; cx.lineWidth = 1.6;
+    cx.beginPath(); cx.moveTo(shoot.x,shoot.y); cx.lineTo(shoot.x-90,shoot.y-45); cx.stroke();
+    shoot.x += 8; shoot.y += 4; if (++shoot.l > 55) shoot = null;
+  }
+  if (!matchMedia('(prefers-reduced-motion:reduce)').matches) requestAnimationFrame(frame);
+}
+addEventListener('resize', resize);
+resize(); requestAnimationFrame(frame);
+</script>
+</body>
+</html>
